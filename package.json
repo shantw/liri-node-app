@@ -1,0 +1,22 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "liri",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shantw/liri-node-app.git"
+  },
+  "keywords": [
+    "liri"
+  ],
+  "author": "Shant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shantw/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/shantw/liri-node-app#readme"
+}
