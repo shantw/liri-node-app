@@ -4,18 +4,60 @@ var consumer_key = keys.consumer_key;
 var consumer_secret = keys.consumer_secret;
 var access_token_key = keys.access_token_key;
 var access_token_secret = keys.access_token_secret;
+var spotifyClientId = keys.spotifyClientId;
+var spotifyClientSecret = keys.spotifyClientSecret;
 
-var command = process.argv[2];
+var command1 = process.argv[2];
+var command2 = process.argv[3];
 
-if (command ==="my-tweets"){
+if (command1 ==="my-tweets"){
 
     myTweets();
   
+} else if (command1 ==="spotify-this-song") {
+
+    spotifyThisSong();
+
+}
+
+function spotifyThisSong() {
+
+//var command2 = process.argv[3]; 
+
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify({
+    id: spotifyClientId,
+    secret: spotifyClientSecret
+  });
+var limit = 5;
+
+if (command2 === null || command2 === '') {
+    command2 = 'The Sign'
+    var album    = 'Ace of Bace'
 }
 
 
+spotify.search({ type: 'track', query: command2, limit : limit}, function(err, data) {
+
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+
+for (i=0; i < 5 ; i++){ //data.tracks.items.length
+console.log("Name of the song: "+data.tracks.items[i].name + "  " +"Album Name(s): " + data.tracks.items[i].album.name + "   "+ "Artist(s): " + data.tracks.items[i].album.artists[0].name);
+//console.log(data.tracks.items[i]);
+
+//console.log(data.tracks.items[i].name);
+}
+
+//console.log(data.tracks.items[0]);
+
+});
 
 
+
+
+}
 
 function myTweets(){
 

@@ -21,6 +21,7 @@
   "homepage": "https://github.com/shantw/liri-node-app#readme",
   "dependencies": {
     "axios": "^0.17.1",
+    "node-spotify-api": "^1.0.7",
     "twitter": "^1.7.1"
   }
 }
