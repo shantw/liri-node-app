@@ -7,12 +7,14 @@ var access_token_secret = keys.access_token_secret;
 var spotifyClientId = keys.spotifyClientId;
 var spotifyClientSecret = keys.spotifyClientSecret;
 var OMDBAPIKey = 'trilogy';
-var command2 = null;
+//var command2 = null;
 
 var command1 = process.argv[2];
-command2 = process.argv[3];
+var command2 = process.argv[3];
 
+checkCommands();
 
+function checkCommands(){
 if (command1 ==="my-tweets"){
 
     myTweets();
@@ -24,6 +26,33 @@ if (command1 ==="my-tweets"){
 } else if (command1 ==="movie-this") {
        movieThis();
 }
+else if (command1 ==="do-what-it-says") {
+    doWhatItSays();
+} 
+else 
+{
+console.log("Not a valid Command");
+}
+
+};
+
+function doWhatItSays(){
+
+    var fs = require("fs");
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        
+        if (error) {
+          return console.log(error);
+        }
+
+        var dataArr = data.split(",");
+
+        command1 = dataArr[0];
+        command2 = dataArr[1];
+        checkCommands();     
+    });
+    
+};
 
 
 function movieThis(){
@@ -32,12 +61,14 @@ if (command2 === null || command2 === '' || command2 === undefined ) {
     command2 = 'Mr. Nobody'
 }
 var request = require("request");
-// Then run a request to the OMDB API with the movie specified
+
+// Run a request to the OMDB API with the movie specified
+
 request("http://www.omdbapi.com/?t=" + command2 + "&y=&plot=short&apikey=" + OMDBAPIKey, function(error, response, body) {
-  // If the request is successful (i.e. if the response status code is 200)
+  // If the request is successful 
   if (!error && response.statusCode === 200) {
-    // Parse the body of the site and recover just the imdbRating
-    // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+    // Parse the body of the site
+
     console.log("Title of the movie is: " + JSON.parse(body).Title); 
     console.log("Year the movie came out is: " + JSON.parse(body).Year); 
     console.log("IMDB Rating of the movie is: " + JSON.parse(body).imdbRating); 
@@ -50,7 +81,7 @@ request("http://www.omdbapi.com/?t=" + command2 + "&y=&plot=short&apikey=" + OMD
 
 });
     
-}
+};
 
 function spotifyThisSong() {
 
@@ -62,7 +93,6 @@ var spotify = new Spotify({
     secret: spotifyClientSecret
   });
 var limit = 5;
-
 
 if (command2 === null || command2 === '' || command2 === undefined ) {
     command2 = 'The Sign'
@@ -81,12 +111,11 @@ console.log("Album Name(s): " + data.tracks.items[i].album.name);
 console.log("Artist(s): " + data.tracks.items[i].album.artists[0].name);
 console.log("Preview Link: " + data.tracks.items[i].preview_url);
 
-//console.log(data.tracks.items[i].name);
 }
 
 });
 
-}
+};
 
 function myTweets(){
 
@@ -112,4 +141,4 @@ function myTweets(){
         }
          //console.log(response);
        });
-}
+};
