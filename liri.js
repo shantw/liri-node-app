@@ -6,9 +6,12 @@ var access_token_key = keys.access_token_key;
 var access_token_secret = keys.access_token_secret;
 var spotifyClientId = keys.spotifyClientId;
 var spotifyClientSecret = keys.spotifyClientSecret;
+var command2 = null;
 
 var command1 = process.argv[2];
-var command2 = process.argv[3];
+command2 = process.argv[3];
+
+
 
 if (command1 ==="my-tweets"){
 
@@ -29,13 +32,13 @@ var spotify = new Spotify({
     id: spotifyClientId,
     secret: spotifyClientSecret
   });
-var limit = 7;
+var limit = 5;
 
-if (command2 === null || command2 === '') {
+
+if (command2 === null || command2 === '' || command2 === undefined ) {
     command2 = 'The Sign'
     var album    = 'Ace of Bace'
 }
-
 
 spotify.search({ type: 'track', query: command2, limit : limit}, function(err, data) {
 
@@ -43,22 +46,16 @@ spotify.search({ type: 'track', query: command2, limit : limit}, function(err, d
       return console.log('Error occurred: ' + err);
     }
 
-for (i=0; i < 7 && i < data.tracks.items.length ; i++){ //data.tracks.items.length
+for (i=0; i < limit && i < data.tracks.items.length ; i++){ //data.tracks.items.length
 console.log("Name of the song: "+data.tracks.items[i].name);
 console.log("Album Name(s): " + data.tracks.items[i].album.name);
 console.log("Artist(s): " + data.tracks.items[i].album.artists[0].name);
 console.log("Preview Link: " + data.tracks.items[i].preview_url);
 
-//console.log(data.tracks.items[i].preview_url);
-
 //console.log(data.tracks.items[i].name);
 }
 
-//console.log(data.tracks.items[0]);
-
 });
-
-
 
 
 }
