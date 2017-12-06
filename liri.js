@@ -6,11 +6,11 @@ var access_token_key = keys.access_token_key;
 var access_token_secret = keys.access_token_secret;
 var spotifyClientId = keys.spotifyClientId;
 var spotifyClientSecret = keys.spotifyClientSecret;
+var OMDBAPIKey = 'trilogy';
 var command2 = null;
 
 var command1 = process.argv[2];
 command2 = process.argv[3];
-
 
 
 if (command1 ==="my-tweets"){
@@ -21,6 +21,35 @@ if (command1 ==="my-tweets"){
 
     spotifyThisSong();
 
+} else if (command1 ==="movie-this") {
+       movieThis();
+}
+
+
+function movieThis(){
+
+if (command2 === null || command2 === '' || command2 === undefined ) {
+    command2 = 'Mr. Nobody'
+}
+var request = require("request");
+// Then run a request to the OMDB API with the movie specified
+request("http://www.omdbapi.com/?t=" + command2 + "&y=&plot=short&apikey=" + OMDBAPIKey, function(error, response, body) {
+  // If the request is successful (i.e. if the response status code is 200)
+  if (!error && response.statusCode === 200) {
+    // Parse the body of the site and recover just the imdbRating
+    // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+    console.log("Title of the movie is: " + JSON.parse(body).Title); 
+    console.log("Year the movie came out is: " + JSON.parse(body).Year); 
+    console.log("IMDB Rating of the movie is: " + JSON.parse(body).imdbRating); 
+    console.log("Rotten Tomatoes Rating of the movie is: " + JSON.parse(body).Ratings[1].Value); 
+    console.log("Country where the movie was produced: " + JSON.parse(body).Country); 
+    console.log("Language of the movie: " + JSON.parse(body).Language); 
+    console.log("Plot of the movie: " + JSON.parse(body).Plot); 
+    console.log("Actors in the movie: " + JSON.parse(body).Actors); 
+  }
+
+});
+    
 }
 
 function spotifyThisSong() {
@@ -56,7 +85,6 @@ console.log("Preview Link: " + data.tracks.items[i].preview_url);
 }
 
 });
-
 
 }
 
