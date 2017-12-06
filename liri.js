@@ -29,7 +29,7 @@ var spotify = new Spotify({
     id: spotifyClientId,
     secret: spotifyClientSecret
   });
-var limit = 5;
+var limit = 7;
 
 if (command2 === null || command2 === '') {
     command2 = 'The Sign'
@@ -43,9 +43,13 @@ spotify.search({ type: 'track', query: command2, limit : limit}, function(err, d
       return console.log('Error occurred: ' + err);
     }
 
-for (i=0; i < 5 ; i++){ //data.tracks.items.length
-console.log("Name of the song: "+data.tracks.items[i].name + "  " +"Album Name(s): " + data.tracks.items[i].album.name + "   "+ "Artist(s): " + data.tracks.items[i].album.artists[0].name);
-//console.log(data.tracks.items[i]);
+for (i=0; i < 7 && i < data.tracks.items.length ; i++){ //data.tracks.items.length
+console.log("Name of the song: "+data.tracks.items[i].name);
+console.log("Album Name(s): " + data.tracks.items[i].album.name);
+console.log("Artist(s): " + data.tracks.items[i].album.artists[0].name);
+console.log("Preview Link: " + data.tracks.items[i].preview_url);
+
+//console.log(data.tracks.items[i].preview_url);
 
 //console.log(data.tracks.items[i].name);
 }
