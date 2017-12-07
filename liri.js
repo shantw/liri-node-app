@@ -7,24 +7,32 @@ var access_token_secret = keys.access_token_secret;
 var spotifyClientId = keys.spotifyClientId;
 var spotifyClientSecret = keys.spotifyClientSecret;
 var OMDBAPIKey = 'trilogy';
+var command0   = 'node liri.js';
 //var command2 = null;
 
 var command1 = process.argv[2];
 var command2 = process.argv[3];
-
 checkCommands();
 
 function checkCommands(){
+
 if (command1 ==="my-tweets"){
 
     myTweets();
+    command0 = "\n" + 'command: ' + command0 + " " + command1;
+    writeLog(command0);
+
   
 } else if (command1 ==="spotify-this-song") {
 
     spotifyThisSong();
+    command0 = "\n" + 'command: ' + command0 + " " + command1 + " " + command2;
+    writeLog(command0);
 
 } else if (command1 ==="movie-this") {
        movieThis();
+       command0 = "\n" + 'command: ' + command0 + " " + command1 + " " + command2;
+       writeLog(command0);
 }
 else if (command1 ==="do-what-it-says") {
     doWhatItSays();
@@ -77,6 +85,15 @@ request("http://www.omdbapi.com/?t=" + command2 + "&y=&plot=short&apikey=" + OMD
     console.log("Language of the movie: " + JSON.parse(body).Language); 
     console.log("Plot of the movie: " + JSON.parse(body).Plot); 
     console.log("Actors in the movie: " + JSON.parse(body).Actors); 
+
+    writeLog("\n" + "Title of the movie is: " + JSON.parse(body).Title); 
+    writeLog("\n" + "Year the movie came out is: " + JSON.parse(body).Year); 
+    writeLog("\n" + "IMDB Rating of the movie is: " + JSON.parse(body).imdbRating); 
+    writeLog("\n" + "Rotten Tomatoes Rating of the movie is: " + JSON.parse(body).Ratings[1].Value); 
+    writeLog("\n" + "Country where the movie was produced: " + JSON.parse(body).Country); 
+    writeLog("\n" + "Language of the movie: " + JSON.parse(body).Language); 
+    writeLog("\n" + "Plot of the movie: " + JSON.parse(body).Plot); 
+    writeLog("\n" + "Actors in the movie: " + JSON.parse(body).Actors); 
   }
 
 });
@@ -116,6 +133,11 @@ if (artist !== null){
                     console.log("Album Name(s): " + data.tracks.items[i].album.name);
                     console.log("Artist(s): " + data.tracks.items[i].album.artists[j].name);
                     console.log("Preview Link: " + data.tracks.items[i].preview_url);    
+
+                    writeLog("\n" + "Name of the song: "+data.tracks.items[i].name);
+                    writeLog("\n" + "Album Name(s): " + data.tracks.items[i].album.name);
+                    writeLog( "\n" + "Artist(s): " + data.tracks.items[i].album.artists[0].name);
+                    writeLog("\n" + "Preview Link: " + data.tracks.items[i].preview_url);
                 }  
             }
         }         
@@ -134,7 +156,12 @@ else
             console.log("Name of the song: "+data.tracks.items[i].name);
             console.log("Album Name(s): " + data.tracks.items[i].album.name);
             console.log("Artist(s): " + data.tracks.items[i].album.artists[0].name);
-            console.log("Preview Link: " + data.tracks.items[i].preview_url);      
+            console.log("Preview Link: " + data.tracks.items[i].preview_url);  
+
+            writeLog("\n" + "Name of the song: "+data.tracks.items[i].name);
+            writeLog("\n" + "Album Name(s): " + data.tracks.items[i].album.name);
+            writeLog( "\n" + "Artist(s): " + data.tracks.items[i].album.artists[0].name);
+            writeLog("\n" + "Preview Link: " + data.tracks.items[i].preview_url);
         }   
     }
     });  
@@ -159,11 +186,27 @@ function myTweets(){
        client.get('statuses/user_timeline', params, function(error, tweets, response) {
          if (error) throw error;
 
-        console.log(tweets.length);
+        //console.log(tweets.length);
         for (i=0; (i < count && i < tweets.length)  ;i++){
          console.log("Tweet: " + tweets[i].text + "   " + "Created at: " + tweets[i].created_at);
+         writeLog("\n" + "Tweet: " + tweets[i].text + "   " + "Created at: " + tweets[i].created_at);
          
         }
          //console.log(response);
        });
 };
+
+
+function writeLog(data){
+    var fs = require("fs");
+
+    var textFile = 'log.txt';
+
+    fs.appendFile(textFile, data, function(err) {
+      
+      if (err) {
+        console.log(err);
+      }
+
+    });
+}

@@ -1,0 +1,31 @@
+
+command: node liri.js spotify-this-song killing me softly
+Name of the song: Killing Me Softly
+Album Name(s): Killing Me Softly
+Artist(s): Joseph Vincent
+Preview Link: https://p.scdn.co/mp3-preview/c2ebf8825daf4a9a35b41766cc1d4f7917dde4d9?cid=d9f5140da7b041e2a4be52164ff699f0
+command: node liri.js my-tweets
+Tweet: Music brings people together!   Created at: Thu Dec 07 00:51:56 +0000 2017
+Tweet: So close , no matter how far!   Created at: Wed Dec 06 20:28:13 +0000 2017
+Tweet: Tomorrow is another day!   Created at: Wed Dec 06 20:25:46 +0000 2017
+Tweet: Hopefully, 2018 will be a good year!   Created at: Tue Dec 05 23:30:54 +0000 2017
+Tweet: Work hard! play harder!   Created at: Tue Dec 05 19:45:02 +0000 2017
+Tweet: too good to be true!   Created at: Wed Dec 06 20:32:18 +0000 2017
+Tweet: No pain! No game!   Created at: Tue Dec 05 19:44:15 +0000 2017
+Tweet: Never give up! Keep trying till the end!   Created at: Tue Dec 05 19:34:54 +0000 2017
+Tweet: Live the moment and enjoy your life! After all you are going to leave once!😀   Created at: Tue Dec 05 19:33:19 +0000 2017
+Tweet: Your past experiences made what you are today!   Created at: Tue Dec 05 19:25:22 +0000 2017
+Tweet: Life Is beautiful if you know how to live it!   Created at: Tue Dec 05 18:42:16 +0000 2017
+Tweet: Testing Javascript   Created at: Tue Dec 05 18:17:40 +0000 2017
+Tweet: Happy Tuesday!   Created at: Tue Dec 05 18:03:14 +0000 2017
+Tweet: hello   Created at: Tue Dec 05 00:27:51 +0000 2017
+command: node liri.js movie-this scarface
+Title of the movie is: Scarface
+Rotten Tomatoes Rating of the movie is: 82%
+IMDB Rating of the movie is: 8.3
+Actors in the movie: Al Pacino, Steven Bauer, Michelle Pfeiffer, Mary Elizabeth Mastrantonio
+Year the movie came out is: 1983
+Plot of the movie: In Miami in 1980, a determined Cuban immigrant takes over a drug cartel and succumbs to greed.
+Country where the movie was produced: USA
+Language of the movie: English, Spanish
+command: node liri.js spotify-this-song "I want it that way"
