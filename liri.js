@@ -93,27 +93,52 @@ var spotify = new Spotify({
     secret: spotifyClientSecret
   });
 var limit = 5;
+var artist = null;
 
 if (command2 === null || command2 === '' || command2 === undefined ) {
-    command2 = 'The Sign'
-    var album    = 'Ace of Bace'
+    command2 = 'The Sign';
+    artist   = 'Ace of Base';
 }
 
-spotify.search({ type: 'track', query: command2, limit : limit}, function(err, data) {
+if (artist !== null){
+    //console.log("dd");
+    //limit = 50;
+    spotify.search({type: 'track', query: 'The Sign', limit : limit}, function(err, data) {      
 
-    if (err) {
-      return console.log('Error occurred: ' + err);
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }       
+        for (i=0; i < limit && i < data.tracks.items.length ; i++){
+            //console.log(command1 + " sdd " + command2 + "  " + artist);
+            for (j=0;j < data.tracks.items[i].artists.length ;j++){
+                if (data.tracks.items[i].artists[j].name.toLowerCase()===artist.toLowerCase()) {
+                    console.log("Name of the song: "+data.tracks.items[i].name);
+                    console.log("Album Name(s): " + data.tracks.items[i].album.name);
+                    console.log("Artist(s): " + data.tracks.items[i].album.artists[j].name);
+                    console.log("Preview Link: " + data.tracks.items[i].preview_url);    
+                }  
+            }
+        }         
+    });
+}
+else
+{
+    spotify.search({type: 'track', query: command2, limit : limit}, function(err, data) {
+        
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }       
+
+        for (i=0; i < limit && i < data.tracks.items.length ; i++){ //data.tracks.items.length
+        if (data.tracks.items[i].name.toLowerCase()===command2.toLowerCase()) {
+            console.log("Name of the song: "+data.tracks.items[i].name);
+            console.log("Album Name(s): " + data.tracks.items[i].album.name);
+            console.log("Artist(s): " + data.tracks.items[i].album.artists[0].name);
+            console.log("Preview Link: " + data.tracks.items[i].preview_url);      
+        }   
     }
-
-for (i=0; i < limit && i < data.tracks.items.length ; i++){ //data.tracks.items.length
-console.log("Name of the song: "+data.tracks.items[i].name);
-console.log("Album Name(s): " + data.tracks.items[i].album.name);
-console.log("Artist(s): " + data.tracks.items[i].album.artists[0].name);
-console.log("Preview Link: " + data.tracks.items[i].preview_url);
-
+    });  
 }
-
-});
 
 };
 
